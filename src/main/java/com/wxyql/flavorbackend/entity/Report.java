@@ -1,5 +1,6 @@
 package com.wxyql.flavorbackend.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -16,5 +17,11 @@ public class Report {
     //-- 0:请品鉴 1:寻味道
     private Integer responseType;
     private Integer respondNum;
-    private Integer total_money;
+    private Integer totalMoney;
+
+    public static final int RESPONSE_TYPE_RESPONSE = 0;
+    public static final int RESPONSE_TYPE_REQUEST = 1;
+
+    public static final int RESPONSE_PRICE = 1;
+    public static final int REQUEST_PRICE = 3;
 }

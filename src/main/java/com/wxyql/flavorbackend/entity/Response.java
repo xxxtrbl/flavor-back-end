@@ -15,7 +15,7 @@ public class Response {
     private Integer respondUserId;
     private String respondIntro;
     private Date respondDate;
-    private Date revise_date;
+    private Date reviseDate;
     // -- 0:待接受; 1:同意; 2:拒绝; 3:取消
     private Integer status;
 }

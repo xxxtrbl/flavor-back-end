@@ -19,5 +19,5 @@ public class Bargain {
     private Integer requestUser;//寻味道用户id
     private Integer respondUser;//请品鉴用户id
     private String city;//城市
-    private Date success_date;//成功日期
+    private Date successDate;//成功日期
 }
