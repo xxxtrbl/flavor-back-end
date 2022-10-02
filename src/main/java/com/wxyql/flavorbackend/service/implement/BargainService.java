@@ -1,6 +1,8 @@
 package com.wxyql.flavorbackend.service.implement;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.wxyql.flavorbackend.entity.Bargain;
+import com.wxyql.flavorbackend.mapper.IBargainMapper;
 import com.wxyql.flavorbackend.service.IBargainService;
 import org.springframework.stereotype.Service;
 
@@ -10,9 +12,10 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
-public class BargainService implements IBargainService {
+public class BargainService extends ServiceImpl<IBargainMapper, Bargain> implements IBargainService {
     @Override
-    public int AddBargain(Bargain bargain) {
-        return 0;
+    public int addBargain(Bargain bargain) {
+        save(bargain);
+        return 1;
     }
 }

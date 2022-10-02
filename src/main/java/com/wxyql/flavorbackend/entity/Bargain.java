@@ -15,9 +15,9 @@ import java.util.Date;
 @TableName("bargains")
 public class Bargain {
     @TableId
-    Integer requestId;//寻味道id
-    Integer requestUser;//寻味道用户id
-    Integer respondUser;//请品鉴用户id
-    String city;//城市
-    Date success_date;//成功日期
+    private Integer requestId;//寻味道id
+    private Integer requestUser;//寻味道用户id
+    private Integer respondUser;//请品鉴用户id
+    private String city;//城市
+    private Date success_date;//成功日期
 }

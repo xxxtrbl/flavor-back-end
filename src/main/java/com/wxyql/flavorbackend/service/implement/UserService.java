@@ -1,5 +1,7 @@
 package com.wxyql.flavorbackend.service.implement;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.wxyql.flavorbackend.beans.UsersInfo;
 import com.wxyql.flavorbackend.entity.User;
@@ -19,8 +21,9 @@ public class UserService extends ServiceImpl<IUserMapper, User> implements IUser
      *
      * @return 添加成功 1, 否则0
      */
-    public int SignUp(User user){
-        return 0;
+    public int addUser(User user){
+        save(user);
+        return 1;
     }
 
     /**
@@ -28,8 +31,19 @@ public class UserService extends ServiceImpl<IUserMapper, User> implements IUser
      *
      * @return 成功 1, 否则 0
      */
-    public int LogIn(String nickname, String password){
-        return 0;
+    public int login(String nickname, String password){
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq("nickname", nickname);
+
+        User user = getOne(wrapper);
+
+        if(user == null){
+            return 0;
+        }
+        else if(!user.getPassword().equals(password)){
+            return 0;
+        }
+        return 1;
     }
 
     /**
@@ -37,8 +51,13 @@ public class UserService extends ServiceImpl<IUserMapper, User> implements IUser
      *
      * @return 用户信息
      */
-    public User GetUserById(String nickname){
-        return null;
+    public User getUserById(String nickname){
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq("nickname", nickname);
+
+        User user = getOne(wrapper);
+
+        return user;
     }
 
     /**
@@ -46,7 +65,17 @@ public class UserService extends ServiceImpl<IUserMapper, User> implements IUser
      *
      * @return 成功 1, 否则0
      */
-    public int RevisePassword(Integer id, String newPassword){
+    public int revisePassword(Integer id, String newPassword){
+        User user = getById(id);
+
+        if(user == null){
+            return 0;
+        }
+
+        user.setPassword(newPassword);
+
+        saveOrUpdate(user);
+
         return 0;
     }
 
@@ -55,7 +84,17 @@ public class UserService extends ServiceImpl<IUserMapper, User> implements IUser
      *
      * @return 成功 1, 否则0
      */
-    public int ReviseTelephone(Integer id, String newTelephone){
+    public int reviseTelephone(Integer id, String newTelephone){
+        User user = getById(id);
+
+        if(user == null){
+            return 0;
+        }
+
+        user.setPhoneNum(newTelephone);
+
+        saveOrUpdate(user);
+
         return 0;
     }
 
@@ -64,7 +103,17 @@ public class UserService extends ServiceImpl<IUserMapper, User> implements IUser
      *
      * @return 成功 1, 否则0
      */
-    public int ReviseIntro(Integer id, String newIntro){
+    public int reviseIntro(Integer id, String newIntro){
+        User user = getById(id);
+
+        if(user == null){
+            return 0;
+        }
+
+        user.setIntro(newIntro);
+
+        saveOrUpdate(user);
+
         return 0;
     }
 
@@ -73,7 +122,11 @@ public class UserService extends ServiceImpl<IUserMapper, User> implements IUser
      *
      * @return 用户信息
      */
-    public UsersInfo GetAllUsers(){
-        return null;
+    public UsersInfo getAllUsers(){
+        UsersInfo result = new UsersInfo();
+
+        result.setUsers(list());
+
+        return result;
     }
 }

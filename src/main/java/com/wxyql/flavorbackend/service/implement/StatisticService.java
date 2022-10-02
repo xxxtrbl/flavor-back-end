@@ -19,27 +19,27 @@ import org.springframework.stereotype.Service;
 @Service
 public class StatisticService extends ServiceImpl<IReportMapper, Report> implements IStatisticService {
     @Override
-    public int AddBargainToReport(Bargain bargain) {
+    public int addBargainToReport(Bargain bargain) {
         return 0;
     }
 
     @Override
-    public ReportsInfo GetLatestThreeMonthsReports(String city) {
+    public ReportsInfo getLatestThreeMonthsReports(String city) {
         return null;
     }
 
     @Override
-    public ReportsInfo GetReportsByConditions(SearchCondition conditions) {
+    public ReportsInfo getReportsByConditions(SearchCondition conditions) {
         return null;
     }
 
     @Override
-    public MonthlyNum GetTotalNumOrderedByMonth() {
+    public MonthlyNum getTotalNumOrderedByMonth() {
         return null;
     }
 
     @Override
-    public MonthlyMoney GetReportsOrderedByMoney() {
+    public MonthlyMoney getReportsOrderedByMoney() {
         return null;
     }
 }

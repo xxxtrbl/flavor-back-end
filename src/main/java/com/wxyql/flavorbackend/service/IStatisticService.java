@@ -20,33 +20,33 @@ public interface IStatisticService extends IService<Report> {
      *
      * @return 添加成功 1, 否则0
      */
-    int AddBargainToReport(Bargain bargain);
+    int addBargainToReport(Bargain bargain);
 
     /**
      * <p>获取某地区最近三个月的报表信息</p>
      *
      * @return 添加成功 1, 否则0
      */
-    ReportsInfo GetLatestThreeMonthsReports(String city);
+    ReportsInfo getLatestThreeMonthsReports(String city);
 
     /**
      * <p>根据起始日期和地点筛选报表信息</p>
      *
      * @return 获取到对应的表单
      */
-    ReportsInfo GetReportsByConditions(SearchCondition conditions);
+    ReportsInfo getReportsByConditions(SearchCondition conditions);
 
     /**
      * <p>按月统计成交量</p>
      *
      * @return 每个月对应的成交量
      */
-    MonthlyNum GetTotalNumOrderedByMonth();
+    MonthlyNum getTotalNumOrderedByMonth();
 
     /**
      * <p>按月统计成交金额</p>
      *
      * @return 每个月对应的成交金额
      */
-    MonthlyMoney GetReportsOrderedByMoney();
+    MonthlyMoney getReportsOrderedByMoney();
 }

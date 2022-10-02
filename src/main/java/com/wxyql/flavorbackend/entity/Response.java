@@ -10,12 +10,12 @@ import java.util.Date;
 @TableName("responses")
 public class Response {
     @TableId
-    Integer id;
-    Integer requestId;
-    Integer respondUserId;
-    String respondIntro;
-    Date respondDate;
-    Date revise_date;
+    private Integer id;
+    private Integer requestId;
+    private Integer respondUserId;
+    private String respondIntro;
+    private Date respondDate;
+    private Date revise_date;
     // -- 0:待接受; 1:同意; 2:拒绝; 3:取消
-    Integer status;
+    private Integer status;
 }

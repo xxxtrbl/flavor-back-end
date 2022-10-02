@@ -1,5 +1,6 @@
 package com.wxyql.flavorbackend.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.wxyql.flavorbackend.entity.Bargain;
 
 /**
@@ -7,12 +8,12 @@ import com.wxyql.flavorbackend.entity.Bargain;
  * @author wxy
  */
 
-public interface IBargainService {
+public interface IBargainService extends IService<Bargain> {
 
     /**
      * <p>添加交易成功的响应</p>
      *
      * @return 添加成功返回1, 否则0
      */
-    int AddBargain(Bargain bargain);
+    int addBargain(Bargain bargain);
 }

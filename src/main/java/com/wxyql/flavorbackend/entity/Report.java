@@ -8,13 +8,13 @@ import lombok.Data;
 @TableName("reports")
 public class Report {
     @TableId
-    Integer id;
-    Integer year;
-    Integer month;
+    private Integer id;
+    private Integer year;
+    private Integer month;
     //-- 省-市
-    String city;
+    private String city;
     //-- 0:请品鉴 1:寻味道
-    Integer responseType;
-    Integer respondNum;
-    Integer total_money;
+    private Integer responseType;
+    private Integer respondNum;
+    private Integer total_money;
 }
