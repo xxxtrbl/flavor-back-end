@@ -5,8 +5,13 @@ import com.wxyql.flavorbackend.beans.MonthlyMoney;
 import com.wxyql.flavorbackend.beans.MonthlyNum;
 import com.wxyql.flavorbackend.beans.ReportsInfo;
 import com.wxyql.flavorbackend.beans.SearchCondition;
-import com.wxyql.flavorbackend.entity.Bargin;
+import com.wxyql.flavorbackend.entity.Bargain;
 import com.wxyql.flavorbackend.entity.Report;
+
+/**
+ * xxx
+ * @author wxy
+ */
 
 public interface IStatisticService extends IService<Report> {
 
@@ -15,7 +20,7 @@ public interface IStatisticService extends IService<Report> {
      *
      * @return 添加成功 1, 否则0
      */
-    int AddBarginToReport(Bargin bargin);
+    int AddBargainToReport(Bargain bargain);
 
     /**
      * <p>获取某地区最近三个月的报表信息</p>

@@ -1,13 +1,18 @@
 package com.wxyql.flavorbackend.service;
 
-import com.wxyql.flavorbackend.entity.Bargin;
+import com.wxyql.flavorbackend.entity.Bargain;
 
-public interface IBarginService {
+/**
+ * xxx
+ * @author wxy
+ */
+
+public interface IBargainService {
 
     /**
      * <p>添加交易成功的响应</p>
      *
      * @return 添加成功返回1, 否则0
      */
-    int AddBargin(Bargin bargin);
+    int AddBargain(Bargain bargain);
 }

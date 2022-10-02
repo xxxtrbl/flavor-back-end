@@ -10,6 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * 管理员相关请求响应
+ * @author wxy
+ */
+
 @RestController
 @Controller
 @RequestMapping("/admin")
@@ -17,19 +22,18 @@ public class AdminController {
     private final IStatisticService statisticService;
 
     @Autowired
-    public AdminController(IStatisticService statisticService)
-    {
+    public AdminController(IStatisticService statisticService) {
         this.statisticService = statisticService;
     }
 
     /**
      * 获得近三个月某城市的报表结果
-     * @param city
-     * @return
+     * @param city 城市
+     * @return 报表结果
      */
     @GetMapping("/recentReportsByCity")
     public ResponseEntity<Object> GetRecentThreeMonths(@RequestParam("city") String city){
-
+        return null;
     }
 
     /**
@@ -38,7 +42,7 @@ public class AdminController {
      */
     @GetMapping("/users")
     public ResponseEntity<Object> GetAllUsers(){
-
+        return null;
     }
 
     /**
@@ -47,7 +51,7 @@ public class AdminController {
      */
     @GetMapping("/groupByMonth")
     public ResponseEntity<Object> GetNumAndMoneyByMonth(){
-
+        return null;
     }
 
     /**
@@ -57,6 +61,6 @@ public class AdminController {
      */
     @GetMapping("/selectByTime")
     public ResponseEntity<Object> GetReportsByConditions(@RequestParam("condition")SearchCondition searchCondition){
-
+        return null;
     }
 }

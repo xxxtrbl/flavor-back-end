@@ -4,6 +4,11 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.wxyql.flavorbackend.beans.ResponsesInfo;
 import com.wxyql.flavorbackend.entity.Response;
 
+/**
+ * xxx
+ * @author wxy
+ */
+
 public interface IResponseService extends IService<Response> {
 
     /**

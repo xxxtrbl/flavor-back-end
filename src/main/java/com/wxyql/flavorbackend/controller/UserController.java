@@ -8,6 +8,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * 用户相关请求响应
+ * @author wxy
+ */
+
 @RestController
 @Controller
 @RequestMapping("/user")
@@ -26,7 +31,7 @@ public class UserController {
      */
     @PostMapping("/register")
     public ResponseEntity<Object> register(@RequestBody User user){
-
+        return null;
     }
 
     /**
@@ -37,7 +42,7 @@ public class UserController {
      */
     @GetMapping("/logIn")
     public ResponseEntity<Object> login(@RequestParam("nickname")String nickname,@RequestParam("password") String password){
-
+        return null;
     }
 
     /**
@@ -48,7 +53,7 @@ public class UserController {
      */
     @GetMapping("/revisePwd")
     public ResponseEntity<Object> revisePwd(@RequestParam("id")Integer id, @RequestParam("newPwd") String newPwd){
-
+        return null;
     }
 
     /**
@@ -59,11 +64,11 @@ public class UserController {
      */
     @GetMapping("/revisePhone")
     public ResponseEntity<Object> revisePhone(@RequestParam("id")Integer id, @RequestParam("newPhone") String newPhone){
-
+        return null;
     }
 
     @GetMapping("/reviseIntro")
     public ResponseEntity<Object> reviseIntro(@RequestParam("id")Integer id, @RequestParam("newIntro") String newIntro){
-
+        return null;
     }
 }

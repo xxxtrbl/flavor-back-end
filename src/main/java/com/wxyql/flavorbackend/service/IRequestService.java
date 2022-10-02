@@ -6,6 +6,11 @@ import com.wxyql.flavorbackend.entity.Request;
 
 import java.util.List;
 
+/**
+ * xxx
+ * @author wxy
+ */
+
 public interface IRequestService extends IService<Request> {
 
     /**
