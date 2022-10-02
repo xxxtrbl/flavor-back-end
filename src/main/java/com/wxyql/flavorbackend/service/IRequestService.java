@@ -77,4 +77,5 @@ public interface IRequestService extends IService<Request> {
      * @return 修改成功1, 否则0
      */
     int ReviseStatus(Integer requestId, int status);
+
 }
