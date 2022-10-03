@@ -1,16 +1,21 @@
 package com.wxyql.flavorbackend.controller;
 
+import com.wxyql.flavorbackend.beans.ReportsInfo;
+import com.wxyql.flavorbackend.beans.RequestsInfo;
 import com.wxyql.flavorbackend.entity.Request;
 import com.wxyql.flavorbackend.service.IBargainService;
 import com.wxyql.flavorbackend.service.IRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+
 /**
  * 寻味道相关请求响应
- * @author yql
+ * @author wxy, yql
  */
 
 @RestController
@@ -28,8 +33,20 @@ public class RequestController {
     }
 
     @PostMapping("/addRequest")
-    public ResponseEntity<Object> AddRequest(@RequestBody Request request){
-        return null;
+    public ResponseEntity<Object> addRequest(@RequestBody Request request){
+        try {
+            int result = requestService.addRequest(request);
+            if(result == 1){
+                return new ResponseEntity<>(null, HttpStatus.OK);
+            }
+            else {
+                return new ResponseEntity<>(null, HttpStatus.CREATED);
+            }
+        }catch (Exception e){
+            HashMap<String, Object> response = new HashMap<>();
+            response.put("msg", "服务器错误");
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
@@ -38,8 +55,15 @@ public class RequestController {
      * @return 户id对应的其所有的寻味道请求
      */
     @GetMapping("/getMyRequests")
-    public ResponseEntity<Object> GetAllRequestsById(@RequestParam("id") Integer id){
-        return null;
+    public ResponseEntity<Object> getAllRequestsById(@RequestParam("id") Integer id){
+        try {
+            RequestsInfo result = requestService.getRequestsByUserId(id);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }catch (Exception e){
+            HashMap<String, Object> response = new HashMap<>();
+            response.put("msg", "服务器错误");
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
@@ -47,8 +71,15 @@ public class RequestController {
      * @return 所有寻味道请求
      */
     @GetMapping("/getAll")
-    public ResponseEntity<Object> GetAllRequests(){
-        return null;
+    public ResponseEntity<Object> getAllRequests(){
+        try {
+            RequestsInfo result = requestService.getAllRequests();
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }catch (Exception e){
+            HashMap<String, Object> response = new HashMap<>();
+            response.put("msg", "服务器错误");
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
@@ -57,8 +88,15 @@ public class RequestController {
      * @return 请求结果
      */
     @GetMapping("/fuzzySearch")
-    public ResponseEntity<Object> GetRequestsSearchBy(@RequestParam("keyword") String keyword){
-        return null;
+    public ResponseEntity<Object> getRequestsSearchBy(@RequestParam("keyword") String keyword){
+        try {
+            RequestsInfo result = requestService.fuzzySearchRequests(keyword);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }catch (Exception e){
+            HashMap<String, Object> response = new HashMap<>();
+            response.put("msg", "服务器错误");
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
@@ -67,13 +105,27 @@ public class RequestController {
      * @return 分类结果
      */
     @GetMapping("/filterByType")
-    public ResponseEntity<Object> GetRequestsByType(@RequestParam("type") Integer type){
-        return null;
+    public ResponseEntity<Object> getRequestsByType(@RequestParam("type") Integer type){
+        try {
+            RequestsInfo result = requestService.filterRequestsByType(type);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }catch (Exception e){
+            HashMap<String, Object> response = new HashMap<>();
+            response.put("msg", "服务器错误");
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping("/filterByCity")
-    public ResponseEntity<Object> GetRequestsByCity(@RequestParam("city") String city){
-        return null;
+    public ResponseEntity<Object> getRequestsByCity(@RequestParam("city") String city){
+        try {
+            RequestsInfo result = requestService.getRequestsByCity(city);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }catch (Exception e){
+            HashMap<String, Object> response = new HashMap<>();
+            response.put("msg", "服务器错误");
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
@@ -83,12 +135,38 @@ public class RequestController {
      */
     @PostMapping("/revise")
     public ResponseEntity<Object> ReviseRequest(@RequestBody Request request){
-        return null;
+        try {
+            int result = requestService.reviseRequest(request);
+            if (result == 1){
+                return new ResponseEntity<>(result, HttpStatus.OK);
+            }
+            else{
+                return new ResponseEntity<>(result, HttpStatus.CREATED);
+            }
+
+        }catch (Exception e){
+            HashMap<String, Object> response = new HashMap<>();
+            response.put("msg", "服务器错误");
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping("/delete")
     public ResponseEntity<Object> DeleteRequest(@RequestParam("id") Integer id){
-        return null;
+        try {
+            int result = requestService.deleteRequest(id);
+            if (result == 1){
+                return new ResponseEntity<>(result, HttpStatus.OK);
+            }
+            else{
+                return new ResponseEntity<>(result, HttpStatus.CREATED);
+            }
+
+        }catch (Exception e){
+            HashMap<String, Object> response = new HashMap<>();
+            response.put("msg", "服务器错误");
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 }

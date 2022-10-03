@@ -1,7 +1,6 @@
 package com.wxyql.flavorbackend.controller;
 
-import com.wxyql.flavorbackend.beans.SearchCondition;
-import com.wxyql.flavorbackend.beans.UsersInfo;
+import com.wxyql.flavorbackend.beans.*;
 import com.wxyql.flavorbackend.entity.User;
 import com.wxyql.flavorbackend.service.IStatisticService;
 import com.wxyql.flavorbackend.service.IUserService;
@@ -19,7 +18,7 @@ import java.util.List;
 
 /**
  * 管理员相关请求响应
- * @author wxy
+ * @author wxy, yql
  */
 
 @RestController
@@ -42,8 +41,15 @@ public class AdminController {
      * @return 报表结果
      */
     @GetMapping("/recentReportsByCity")
-    public ResponseEntity<Object> GetRecentThreeMonths(@RequestParam("city") String city){
-        return null;
+    public ResponseEntity<Object> getRecentThreeMonths(@RequestParam("city") String city){
+        try {
+            ReportsInfo reports = statisticService.getLatestThreeMonthsReports(city);
+            return new ResponseEntity<>(reports, HttpStatus.OK);
+        }catch (Exception e){
+            HashMap<String, Object> response = new HashMap<>();
+            response.put("msg", "服务器错误");
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
@@ -51,7 +57,7 @@ public class AdminController {
      * @return 所有用户的信息
      */
     @GetMapping("/users")
-    public ResponseEntity<Object> GetAllUsers(){
+    public ResponseEntity<Object> getAllUsers(){
         try {
             UsersInfo users = userService.getAllUsers();
             return new ResponseEntity<>(users, HttpStatus.OK);
@@ -67,8 +73,17 @@ public class AdminController {
      * @return 按月获取的数量和成交量(默认最多返回过去12个月的)
      */
     @GetMapping("/groupByMonth")
-    public ResponseEntity<Object> GetNumAndMoneyByMonth(){
-        return null;
+    public ResponseEntity<Object> getNumAndMoneyByMonth(){
+        try {
+            MonthlyNum monthlyNum = statisticService.getTotalNumOrderedByMonth();
+            MonthlyMoney monthlyMoney = statisticService.getReportsOrderedByMoney();
+            HashMap<String,Object> result = new HashMap<>();
+            return new ResponseEntity<>(monthlyNum, HttpStatus.OK);
+        }catch (Exception e){
+            HashMap<String, Object> response = new HashMap<>();
+            response.put("msg", "服务器错误");
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
@@ -77,7 +92,14 @@ public class AdminController {
      * @return 根据搜索条件过滤的报表
      */
     @GetMapping("/selectByTime")
-    public ResponseEntity<Object> GetReportsByConditions(@RequestParam("condition")SearchCondition searchCondition){
-        return null;
+    public ResponseEntity<Object> getReportsByConditions(@RequestParam("condition")SearchCondition searchCondition){
+        try {
+            ReportsInfo reports = statisticService.getReportsByConditions(searchCondition);
+            return new ResponseEntity<>(reports, HttpStatus.OK);
+        }catch (Exception e){
+            HashMap<String, Object> response = new HashMap<>();
+            response.put("msg", "服务器错误");
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

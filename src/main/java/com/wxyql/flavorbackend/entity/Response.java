@@ -18,4 +18,9 @@ public class Response {
     private Date reviseDate;
     // -- 0:待接受; 1:同意; 2:拒绝; 3:取消
     private Integer status;
+
+    public static final int STATUS_WAITING = 0;
+    public static final int STATUS_ACCEPTED = 1;
+    public static final int STATUS_REJECTED = 2;
+    public static final int STATUS_CANCELLED = 3;
 }

@@ -1,16 +1,20 @@
 package com.wxyql.flavorbackend.controller;
 
+import com.wxyql.flavorbackend.entity.Response;
 import com.wxyql.flavorbackend.entity.User;
 import com.wxyql.flavorbackend.service.IUserService;
 import com.wxyql.flavorbackend.service.implement.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+
 /**
  * 用户相关请求响应
- * @author wxy
+ * @author wxy, yql
  */
 
 @RestController
@@ -31,7 +35,19 @@ public class UserController {
      */
     @PostMapping("/register")
     public ResponseEntity<Object> register(@RequestBody User user){
-        return null;
+        try {
+            int result = userService.addUser(user);
+            if(result == 1){
+                return new ResponseEntity<>(null, HttpStatus.OK);
+            }
+            else{
+                return new ResponseEntity<>(null, HttpStatus.CREATED);
+            }
+        }catch (Exception e){
+            HashMap<String, Object> response = new HashMap<>();
+            response.put("msg", "服务器错误");
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
@@ -42,7 +58,19 @@ public class UserController {
      */
     @GetMapping("/logIn")
     public ResponseEntity<Object> login(@RequestParam("nickname")String nickname,@RequestParam("password") String password){
-        return null;
+        try {
+            int result = userService.login(nickname, password);
+            if(result == 1){
+                return new ResponseEntity<>(null, HttpStatus.OK);
+            }
+            else{
+                return new ResponseEntity<>(null, HttpStatus.CREATED);
+            }
+        }catch (Exception e){
+            HashMap<String, Object> response = new HashMap<>();
+            response.put("msg", "服务器错误");
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
@@ -53,7 +81,19 @@ public class UserController {
      */
     @GetMapping("/revisePwd")
     public ResponseEntity<Object> revisePwd(@RequestParam("id")Integer id, @RequestParam("newPwd") String newPwd){
-        return null;
+        try {
+            int result = userService.revisePassword(id, newPwd);
+            if(result == 1){
+                return new ResponseEntity<>(null, HttpStatus.OK);
+            }
+            else{
+                return new ResponseEntity<>(null, HttpStatus.CREATED);
+            }
+        }catch (Exception e){
+            HashMap<String, Object> response = new HashMap<>();
+            response.put("msg", "服务器错误");
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
@@ -64,11 +104,35 @@ public class UserController {
      */
     @GetMapping("/revisePhone")
     public ResponseEntity<Object> revisePhone(@RequestParam("id")Integer id, @RequestParam("newPhone") String newPhone){
-        return null;
+        try {
+            int result = userService.reviseTelephone(id, newPhone);
+            if(result == 1){
+                return new ResponseEntity<>(null, HttpStatus.OK);
+            }
+            else{
+                return new ResponseEntity<>(null, HttpStatus.CREATED);
+            }
+        }catch (Exception e){
+            HashMap<String, Object> response = new HashMap<>();
+            response.put("msg", "服务器错误");
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping("/reviseIntro")
     public ResponseEntity<Object> reviseIntro(@RequestParam("id")Integer id, @RequestParam("newIntro") String newIntro){
-        return null;
+        try {
+            int result = userService.reviseIntro(id, newIntro);
+            if(result == 1){
+                return new ResponseEntity<>(null, HttpStatus.OK);
+            }
+            else{
+                return new ResponseEntity<>(null, HttpStatus.CREATED);
+            }
+        }catch (Exception e){
+            HashMap<String, Object> response = new HashMap<>();
+            response.put("msg", "服务器错误");
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
