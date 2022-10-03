@@ -78,7 +78,9 @@ public class AdminController {
             MonthlyNum monthlyNum = statisticService.getTotalNumOrderedByMonth();
             MonthlyMoney monthlyMoney = statisticService.getReportsOrderedByMoney();
             HashMap<String,Object> result = new HashMap<>();
-            return new ResponseEntity<>(monthlyNum, HttpStatus.OK);
+            result.put("monthlyNum", monthlyNum);
+            result.put("monthlyMoney", monthlyMoney);
+            return new ResponseEntity<>(result, HttpStatus.OK);
         }catch (Exception e){
             HashMap<String, Object> response = new HashMap<>();
             response.put("msg", "服务器错误");
