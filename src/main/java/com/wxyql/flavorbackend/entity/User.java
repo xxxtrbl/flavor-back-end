@@ -39,6 +39,8 @@ public class User {
     @TableField(value = "city")
     private String city;
 
+    private String intro;
+
     /* fill automatically when inserted */
     @TableField(fill = FieldFill.INSERT)
     private Timestamp create_time;

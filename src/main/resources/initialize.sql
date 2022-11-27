@@ -8,7 +8,7 @@ create table users
     user_name    varchar(30) not null,
     -- id card or other identifier
     is_id        bool not null,
-    id           varchar(30) not null,
+    id_num       varchar(30) not null,
     phone        varchar(11) not null,
     -- vip or normal user
     is_vip       bool not null,
@@ -50,7 +50,7 @@ create table responses
     status int not null
 );
 -- 成功明细表
-create table bargins
+create table bargains
 (
     request_id int primary key,
     request_user int not null,
