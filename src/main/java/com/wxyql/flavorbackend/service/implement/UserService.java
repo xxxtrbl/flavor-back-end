@@ -8,6 +8,7 @@ import com.wxyql.flavorbackend.entity.User;
 import com.wxyql.flavorbackend.mapper.IUserMapper;
 import com.wxyql.flavorbackend.service.IUserService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 用户管理
@@ -31,9 +32,9 @@ public class UserService extends ServiceImpl<IUserMapper, User> implements IUser
      *
      * @return 成功 1, 否则 0
      */
-    public int login(String nickname, String password){
+    public int login(Integer id, String password){
         QueryWrapper<User> wrapper = new QueryWrapper<>();
-        wrapper.eq("nickname", nickname);
+        wrapper.eq("id", id);
 
         User user = getOne(wrapper);
 
@@ -47,13 +48,13 @@ public class UserService extends ServiceImpl<IUserMapper, User> implements IUser
     }
 
     /**
-     * <p>根据用户名获取对应用户信息</p>
+     * <p>根据用户id获取对应用户信息</p>
      *
      * @return 用户信息
      */
-    public User getUserById(String nickname){
+    public User getUserById(Integer id){
         QueryWrapper<User> wrapper = new QueryWrapper<>();
-        wrapper.eq("nickname", nickname);
+        wrapper.eq("id", id);
 
         User user = getOne(wrapper);
 

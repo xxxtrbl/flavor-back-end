@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -19,6 +20,7 @@ import java.util.HashMap;
 
 @RestController
 @Controller
+@CrossOrigin
 @RequestMapping("/user")
 public class UserController {
     private final IUserService userService;
@@ -52,14 +54,14 @@ public class UserController {
 
     /**
      * 登录
-     * @param nickname 用户名
+     * @param id 用户名
      * @param password 密码
      * @return 成功:OK 失败:FORBIDDEN 错误:INTERNAL_SERVER_ERR
      */
     @GetMapping("/logIn")
-    public ResponseEntity<Object> login(@RequestParam("nickname")String nickname,@RequestParam("password") String password){
+    public ResponseEntity<Object> login(@RequestParam("id")Integer id,@RequestParam("password") String password){
         try {
-            int result = userService.login(nickname, password);
+            int result = userService.login(id, password);
             if(result == 1){
                 return new ResponseEntity<>(null, HttpStatus.OK);
             }
@@ -129,6 +131,18 @@ public class UserController {
             else{
                 return new ResponseEntity<>(null, HttpStatus.CREATED);
             }
+        }catch (Exception e){
+            HashMap<String, Object> response = new HashMap<>();
+            response.put("msg", "服务器错误");
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/info")
+    public ResponseEntity<Object> getInfo(@RequestParam("id") Integer id){
+        try {
+            User result = userService.getUserById(id);
+            return new ResponseEntity<>(result, HttpStatus.OK);
         }catch (Exception e){
             HashMap<String, Object> response = new HashMap<>();
             response.put("msg", "服务器错误");

@@ -20,6 +20,7 @@ import java.util.HashMap;
 
 @RestController
 @Controller
+@CrossOrigin
 @RequestMapping("/request")
 public class RequestController {
 

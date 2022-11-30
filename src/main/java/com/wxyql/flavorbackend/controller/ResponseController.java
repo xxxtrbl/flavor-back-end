@@ -21,6 +21,7 @@ import java.util.HashMap;
 
 @RestController
 @Controller
+@CrossOrigin
 @RequestMapping("/response")
 public class ResponseController {
     public final IBargainService bargainService;
