@@ -53,11 +53,7 @@ public class UserService extends ServiceImpl<IUserMapper, User> implements IUser
      * @return 用户信息
      */
     public User getUserById(Integer id){
-        QueryWrapper<User> wrapper = new QueryWrapper<>();
-        wrapper.eq("id", id);
-
-        User user = getOne(wrapper);
-
+        User user = getById(id);
         return user;
     }
 
@@ -77,7 +73,7 @@ public class UserService extends ServiceImpl<IUserMapper, User> implements IUser
 
         saveOrUpdate(user);
 
-        return 0;
+        return 1;
     }
 
     /**
@@ -92,11 +88,11 @@ public class UserService extends ServiceImpl<IUserMapper, User> implements IUser
             return 0;
         }
 
-        user.setPhoneNum(newTelephone);
+        user.setPhone(newTelephone);
 
         saveOrUpdate(user);
 
-        return 0;
+        return 1;
     }
 
     /**
@@ -115,7 +111,7 @@ public class UserService extends ServiceImpl<IUserMapper, User> implements IUser
 
         saveOrUpdate(user);
 
-        return 0;
+        return 1;
     }
 
     /**

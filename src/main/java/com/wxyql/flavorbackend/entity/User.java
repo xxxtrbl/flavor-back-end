@@ -19,20 +19,20 @@ public class User {
     @TableField("pwd")
     private String password;
 
-    @TableField("is_admin")
+    @TableField("isAdmin")
     private boolean isAdmin;
 
-    @TableField("user_name")
+    @TableField("userName")
     private String userName;
 
-    @TableField("is_id")
+    @TableField("isId")
     private boolean isId;
 
-    @TableField("id_num")
+    @TableField("idNum")
     private String idNum;
 
     @TableField("phone")
-    private String phoneNum;
+    private String phone;
 
     @TableField("city")
     private String city;
@@ -41,9 +41,9 @@ public class User {
     private String intro;
 
     /* fill automatically when inserted */
-    @TableField(fill = FieldFill.INSERT)
-    private Date create_time;
+    @TableField(value = "createTime",fill = FieldFill.INSERT)
+    private Date createTime;
 
-    @TableField(fill = FieldFill.INSERT_UPDATE)
-    private Date revise_time;
+    @TableField(value = "reviseTime", fill = FieldFill.INSERT_UPDATE)
+    private Date reviseTime;
 }

@@ -4,17 +4,17 @@ create table users
     pwd     varchar(30) not null,
     nickname     varchar(30) not null,
     -- is user or admin
-    is_admin     bool not null,
-    user_name    varchar(30) not null,
+    isAdmin     bool not null,
+    userName    varchar(30) not null,
     -- id card or other identifier
-    is_id        bool not null,
-    id_num       varchar(30) not null,
+    isId        bool not null,
+    idNum       varchar(30) not null,
     phone        varchar(11) not null,
     intro        varchar(100),
     city         varchar(30) not null,
     -- set automatically
-    create_time  datetime not null ,
-    revise_time  datetime not null
+    createTime  datetime not null ,
+    reviseTime  datetime not null
 );
 
 -- "寻味道"请求信息
