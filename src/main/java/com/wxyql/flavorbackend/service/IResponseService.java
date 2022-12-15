@@ -52,4 +52,11 @@ public interface IResponseService extends IService<Response> {
      * @return 修改成功1, 否则0
      */
     int reviseStatus(Integer id, Integer status);
+
+    /**
+     * <p>根据寻味道id找到对应收到的响应</p>
+     * @param requestId 寻味道id
+     * @return 收到的响应
+     */
+    ResponsesInfo getResponseByRequestId(Integer requestId);
 }

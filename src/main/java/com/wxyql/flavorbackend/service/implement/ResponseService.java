@@ -68,4 +68,15 @@ public class ResponseService extends ServiceImpl<IResponseMapper, Response> impl
 
         return 1;
     }
+
+    @Override
+    public ResponsesInfo getResponseByRequestId(Integer requestId){
+        QueryWrapper<Response> wrapper = new QueryWrapper<>();
+
+        wrapper.eq("request_id", requestId);
+
+        ResponsesInfo result = new ResponsesInfo();
+        result.setResponses(list(wrapper));
+        return result;
+    }
 }

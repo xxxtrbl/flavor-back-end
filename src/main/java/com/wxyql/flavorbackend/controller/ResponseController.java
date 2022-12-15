@@ -2,8 +2,10 @@ package com.wxyql.flavorbackend.controller;
 
 import com.wxyql.flavorbackend.beans.RequestsInfo;
 import com.wxyql.flavorbackend.beans.ResponsesInfo;
+import com.wxyql.flavorbackend.entity.Request;
 import com.wxyql.flavorbackend.entity.Response;
 import com.wxyql.flavorbackend.service.IBargainService;
+import com.wxyql.flavorbackend.service.IRequestService;
 import com.wxyql.flavorbackend.service.IResponseService;
 import com.wxyql.flavorbackend.service.IStatisticService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * 请品鉴
@@ -26,12 +29,17 @@ public class ResponseController {
     public final IBargainService bargainService;
     public final IResponseService responseService;
     public final IStatisticService statisticService;
+    public final IRequestService requestService;
 
     @Autowired
-    public ResponseController(IBargainService bargainService, IResponseService responseService, IStatisticService statisticService){
+    public ResponseController(IBargainService bargainService,
+                              IResponseService responseService,
+                              IStatisticService statisticService,
+                              IRequestService requestService){
         this.bargainService = bargainService;
         this.responseService = responseService;
         this.statisticService = statisticService;
+        this.requestService = requestService;
     }
 
 
@@ -147,4 +155,25 @@ public class ResponseController {
         }
     }
 
+    /**
+     * 同意请求
+     * @param userId 用户id
+     * @return 同意请求处理
+     */
+    @GetMapping("/getReceivedByUserId")
+    public ResponseEntity<Object> getResponseReceivedByUserId(@RequestParam("userId") Integer userId){
+        try {
+            RequestsInfo requests = requestService.getRequestsByUserId(userId);
+            ResponsesInfo responses = new ResponsesInfo();
+            for(Request request : requests.getRequests()){
+                ResponsesInfo responsesToRequest = responseService.getResponseByRequestId(request.getRequestId());
+                responses.getResponses().addAll(responsesToRequest.getResponses());
+            }
+            return new ResponseEntity<>(responses, HttpStatus.OK);
+        }catch (Exception e){
+            HashMap<String, Object> response = new HashMap<>();
+            response.put("msg", "服务器错误");
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
