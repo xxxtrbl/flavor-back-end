@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
 
@@ -50,6 +51,12 @@ public class RequestController {
         }
     }
 
+    @PostMapping(value = "/uploadPics")
+    public ResponseEntity<Object> uploadPics(@RequestParam("file")MultipartFile multipartFile){
+        String fileUrl = requestService.picsRequest(multipartFile).replaceAll("\\\\", "/");
+        return new  ResponseEntity<>(null, HttpStatus.OK);
+    }
+
     /**
      * 根据用户id获取其所有的寻味道请求
      * @param id 用户id
@@ -63,6 +70,22 @@ public class RequestController {
         }catch (Exception e){
             HashMap<String, Object> response = new HashMap<>();
             response.put("msg", "服务器错误");
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    /**
+     * 根据请求id获取其对应的寻味道请求
+     * @param requestId 请求id
+     * @return 请求id对应的其寻味道请求
+     */
+    @GetMapping("/searchByRequestId")
+    public ResponseEntity<Object> getRequestByRequestId(@RequestParam("requestId") String requestId){
+        try{
+            Request result = requestService.getRequestById(requestId);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }catch(Exception e){
+            HashMap<String,Object> response = new HashMap<>();
+            response.put("msg","服务器错误");
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -153,7 +176,7 @@ public class RequestController {
     }
 
     @GetMapping("/delete")
-    public ResponseEntity<Object> DeleteRequest(@RequestParam("id") Integer id){
+    public ResponseEntity<Object> DeleteRequest(@RequestParam("id") String id){
         try {
             int result = requestService.deleteRequest(id);
             if (result == 1){

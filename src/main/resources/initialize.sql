@@ -7,7 +7,7 @@ create table users
     isAdmin     bool not null,
     userName    varchar(30) not null,
     -- id card or other identifier
-    isId        bool not null,
+    isIdCard        bool not null,
     idNum       varchar(30) not null,
     phone        varchar(11) not null,
     intro        varchar(100),
@@ -20,20 +20,20 @@ create table users
 -- "寻味道"请求信息
 create table requests
 (
-    request_id  int primary key auto_increment,
-    user_id     int not null,
+    requestId  varchar(32) not null,
+    userId     int not null,
     -- 0家乡小吃/1地方特色小馆/2香辣味/3甜酸味/4绝一位菜
-    flavor_type        int not null,
+    flavorType        int not null,
     city        varchar(30) not null,
     theme       varchar(30) not null,
     intro       varchar(200) not null,
-    max_price   int not null,
-    end_date    date not null,
+    maxPrice    int not null,
+    endDate     date not null,
     photo       varchar(100),
-    create_time datetime not null ,
-    revise_time datetime not null ,
+    createTime  datetime not null ,
+    reviseTime  datetime not null ,
     -- 0:已完成 1:待响应 2:已取消 3:到期未达成
-    state      int not null
+    curStatus       int not null
 );
 
 -- 请品鉴响应信息

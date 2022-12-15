@@ -8,6 +8,12 @@ import com.wxyql.flavorbackend.entity.Request;
 import com.wxyql.flavorbackend.mapper.IRequestMapper;
 import com.wxyql.flavorbackend.service.IRequestService;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
+
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 寻味道管理
@@ -23,7 +29,27 @@ public class RequestService extends ServiceImpl<IRequestMapper, Request> impleme
     }
 
     @Override
-    public Request getRequestById(Integer requestId) {
+    public String picsRequest(MultipartFile multipartFile){
+        String filePath = "E:/Web/FlavorBackEnd/src/main/resources/static/pic/"+multipartFile.getOriginalFilename();
+        File file = new File(filePath);
+        if(!file.exists()){
+            try{
+                file.createNewFile();
+            }catch(IOException e){
+                e.printStackTrace();
+            }
+        }
+
+        try{
+            multipartFile.transferTo(file);
+        }catch (IOException e){
+            e.printStackTrace();;
+        }
+        return file.getAbsolutePath();
+    }
+
+    @Override
+    public Request getRequestById(String requestId) {
         Request result = getById(requestId);
         return result;
     }
@@ -31,7 +57,7 @@ public class RequestService extends ServiceImpl<IRequestMapper, Request> impleme
     @Override
     public RequestsInfo getRequestsByUserId(Integer userId) {
         QueryWrapper<Request>wrapper = new QueryWrapper<>();
-        wrapper.eq("user_id", userId);
+        wrapper.eq("userId", userId);
 
         RequestsInfo result = new RequestsInfo();
 
@@ -92,7 +118,7 @@ public class RequestService extends ServiceImpl<IRequestMapper, Request> impleme
     }
 
     @Override
-    public int deleteRequest(Integer requestId) {
+    public int deleteRequest(String requestId) {
         removeById(requestId);
         return 1;
     }

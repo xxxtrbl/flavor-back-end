@@ -25,8 +25,8 @@ public class User {
     @TableField("userName")
     private String userName;
 
-    @TableField("isId")
-    private boolean isId;
+    @TableField("isIdCard")
+    private boolean isIdCard;
 
     @TableField("idNum")
     private String idNum;

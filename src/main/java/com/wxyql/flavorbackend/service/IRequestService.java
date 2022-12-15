@@ -3,6 +3,7 @@ package com.wxyql.flavorbackend.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.wxyql.flavorbackend.beans.RequestsInfo;
 import com.wxyql.flavorbackend.entity.Request;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -21,11 +22,18 @@ public interface IRequestService extends IService<Request> {
     int addRequest(Request request);
 
     /**
+     * <p>添加寻味道请求的图片</p>
+     *
+     * @return 添加成功 1, 否则0
+     */
+    String picsRequest(MultipartFile multipartFile);
+
+    /**
      * <p>根据寻味道请求的id获取对应的请求</p>
      *
      * @return 寻味道请求条目
      */
-    Request getRequestById(Integer requestId);
+    Request getRequestById(String requestId);
 
     /**
      * <p>根据用户id获取其发布的所有寻味道请求</p>
@@ -74,7 +82,7 @@ public interface IRequestService extends IService<Request> {
      *
      * @return 修改成功1, 否则0
      */
-    int deleteRequest(Integer requestId);
+    int deleteRequest(String requestId);
 
     /**
      * <p>修改寻味道请求的状态</p>
