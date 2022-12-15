@@ -7,7 +7,11 @@ import com.wxyql.flavorbackend.beans.RequestsInfo;
 import com.wxyql.flavorbackend.entity.Request;
 import com.wxyql.flavorbackend.mapper.IRequestMapper;
 import com.wxyql.flavorbackend.service.IRequestService;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 
 /**
  * 寻味道管理
@@ -15,6 +19,7 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
+@EnableScheduling
 public class RequestService extends ServiceImpl<IRequestMapper, Request> implements IRequestService {
     @Override
     public int addRequest(Request request) {
@@ -106,5 +111,17 @@ public class RequestService extends ServiceImpl<IRequestMapper, Request> impleme
         update(wrapper);
 
         return 1;
+    }
+
+    @Override
+    @Scheduled(cron="0 0 0 * * *")// 每日零点更新
+    public int updateRequestStatusToday() {
+        Date timeNow = new Date();
+
+        UpdateWrapper<Request>wrapper = new UpdateWrapper<>();
+        wrapper.le("end_date", timeNow)
+                .set("status", 3);
+
+        return 0;
     }
 }
