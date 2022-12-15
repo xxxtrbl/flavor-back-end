@@ -91,4 +91,8 @@ public interface IRequestService extends IService<Request> {
      */
     int reviseStatus(Integer requestId, int status);
 
+    /**
+     * <p>更新当日订单状态</p>
+     */
+    int updateRequestStatusToday();
 }
