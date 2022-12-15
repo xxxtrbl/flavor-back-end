@@ -39,12 +39,12 @@ create table requests
 -- 请品鉴响应信息
 create table responses
 (
-    id int primary key auto_increment,
-    request_id int not null,
-    respond_user_id int not null,
-    respond_intro varchar(100) not null,
-    respond_date date not null ,
-    revise_date date not null ,
+    id varchar(32) not null,
+    requestId varchar(32) not null,
+    respondUserId int not null,
+    respondIntro varchar(100) not null,
+    createTime  datetime not null ,
+    reviseTime  datetime not null ,
     -- 0:待接受; 1:同意; 2:拒绝; 3:取消
     state int not null
 );
@@ -54,24 +54,24 @@ create table responses
 -- 成功明细表
 create table bargains
 (
-    request_id int primary key auto_increment,
-    request_user int not null,
-    respond_user int not null,
+    requestId int primary key auto_increment,
+    requestUser int not null,
+    respondUser int not null,
     city varchar(30) not null,
-    success_date date not null
+    successDate date not null
 );
 
 -- 中介收益汇总: 统计某个月不同的交易类型对应的收入
 create table reports
 (
-    id int primary key auto_increment,
+    id varchar(32) primary key,
     yy int not null,
     mm int not null,
     -- 省-市
     city varchar(30) not null ,
     -- 0:请品鉴 1:寻味道
-    response_type int not null,
-    respond_num int not null,
-    total_money int not null
+    responseType int not null,
+    respondNum int not null,
+    totalMoney int not null
 );
 
