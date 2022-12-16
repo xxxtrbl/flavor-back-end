@@ -24,6 +24,7 @@ import java.util.List;
  */
 
 @RestController
+@CrossOrigin
 @RequestMapping("/response")
 public class ResponseController {
     public final IBargainService bargainService;

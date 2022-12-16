@@ -23,14 +23,14 @@ public interface IUserService extends IService<User> {
      *
      * @return 成功 1, 否则 0
      */
-    int login(String nickname, String password);
+    int login(Integer id, String password);
 
     /**
-     * <p>根据用户名获取对应用户信息</p>
+     * <p>根据用户id获取对应用户信息</p>
      *
      * @return 用户信息
      */
-    User getUserById(String nickname);
+    User getUserById(Integer id);
 
     /**
      * <p>修改用户密码</p>

@@ -26,7 +26,7 @@ public class ResponseService extends ServiceImpl<IResponseMapper, Response> impl
     public ResponsesInfo getResponseById(Integer userId) {
         QueryWrapper<Response> wrapper = new QueryWrapper<>();
 
-        wrapper.eq("user_id", userId);
+        wrapper.eq("userId", userId);
 
         ResponsesInfo result = new ResponsesInfo();
         result.setResponses(list(wrapper));
@@ -37,7 +37,7 @@ public class ResponseService extends ServiceImpl<IResponseMapper, Response> impl
     public ResponsesInfo getResponseByIdAndStatus(Integer userId, Integer status) {
         QueryWrapper<Response> wrapper = new QueryWrapper<>();
 
-        wrapper.eq("user_id", userId)
+        wrapper.eq("userId", userId)
                 .eq("status", status);
 
         ResponsesInfo result = new ResponsesInfo();
