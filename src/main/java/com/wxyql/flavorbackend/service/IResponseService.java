@@ -58,5 +58,5 @@ public interface IResponseService extends IService<Response> {
      * @param requestId 寻味道id
      * @return 收到的响应
      */
-    ResponsesInfo getResponseByRequestId(Integer requestId);
+    ResponsesInfo getResponseByRequestId(String requestId);
 }

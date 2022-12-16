@@ -70,7 +70,7 @@ public class ResponseService extends ServiceImpl<IResponseMapper, Response> impl
     }
 
     @Override
-    public ResponsesInfo getResponseByRequestId(Integer requestId){
+    public ResponsesInfo getResponseByRequestId(String requestId){
         QueryWrapper<Response> wrapper = new QueryWrapper<>();
 
         wrapper.eq("request_id", requestId);
