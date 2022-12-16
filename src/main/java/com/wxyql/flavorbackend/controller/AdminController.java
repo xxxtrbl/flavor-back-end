@@ -138,6 +138,37 @@ public class AdminController {
     }
 
     /**
+     * 获取按月获取的数量和成交量(默认最多返回过去12个月的)
+     * @return 按月获取的数量和成交量(默认最多返回过去12个月的)
+     */
+    @GetMapping("/groupByMonthYearCity")
+    public ResponseEntity<Object> getReportsByMonthYearCity(@RequestParam("startMonth") Integer startMonth,
+                                                        @RequestParam("startYear") Integer startYear,
+                                                        @RequestParam("endMonth") Integer endMonth,
+                                                        @RequestParam("endYear") Integer endYear,
+                                                        @RequestParam("city") String city){
+        try {
+            QueryWrapper<Report> wrapper = new QueryWrapper<>();
+            wrapper.eq("city", city);
+            List<Report> reports = statisticService.list(wrapper);
+            for(Report report : reports){
+                int reportYear = report.getYear();
+                int reportMonth = report.getMonth();
+                if(startYear*12+startMonth > reportYear*12+reportMonth ||
+                        endYear*12+endMonth < reportYear*12+reportMonth){
+                    reports.remove(report);
+                }
+            }
+
+            return new ResponseEntity<>(reports, HttpStatus.OK);
+        }catch (Exception e){
+            HashMap<String, Object> response = new HashMap<>();
+            response.put("msg", "服务器错误");
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
      * 获取根据搜索条件过滤的报表
      * @param searchCondition 搜索条件
      * @return 根据搜索条件过滤的报表
