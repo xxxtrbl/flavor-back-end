@@ -49,7 +49,7 @@ public interface IRequestService extends IService<Request> {
     RequestsInfo getAllRequests();
 
     /**
-     * <p>模糊搜索(主题名称)寻味道请求</p>
+     * <p>模糊搜索(主题名称/简介)寻味道请求</p>
      *
      * @return 所有寻味道请求
      */
