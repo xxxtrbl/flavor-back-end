@@ -9,8 +9,8 @@ import com.wxyql.flavorbackend.entity.Bargain;
 import com.wxyql.flavorbackend.entity.Report;
 
 /**
- * xxx
- * @author wxy
+ * 统计服务接口
+ * @author wxy, yql
  */
 
 public interface IStatisticService extends IService<Report> {

@@ -5,7 +5,7 @@ import com.wxyql.flavorbackend.beans.ResponsesInfo;
 import com.wxyql.flavorbackend.entity.Response;
 
 /**
- * xxx
+ * 请品鉴服务接口
  * @author wxy
  */
 

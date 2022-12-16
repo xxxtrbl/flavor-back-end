@@ -1,6 +1,7 @@
 package com.wxyql.flavorbackend.controller;
 
 import com.wxyql.flavorbackend.beans.*;
+import com.wxyql.flavorbackend.entity.Bargain;
 import com.wxyql.flavorbackend.entity.User;
 import com.wxyql.flavorbackend.service.IStatisticService;
 import com.wxyql.flavorbackend.service.IUserService;
@@ -30,6 +31,29 @@ public class AdminController {
                            IUserService userService) {
         this.statisticService = statisticService;
         this.userService = userService;
+    }
+
+    /**
+     * <p>有新的成功响应, 将其数据统计到对应的(时间/城市一致)Report中</p>
+     * @param bargain 交易信息
+     * @return 成功或失败信息
+     */
+    @PostMapping("/addBargainToReport")
+    public ResponseEntity<Object> addBargainToReport(@RequestBody Bargain bargain){
+        try {
+            int result = statisticService.addBargainToReport(bargain);
+            if(result == 1){
+                return new ResponseEntity<>(null, HttpStatus.OK);
+            }
+            else {
+                return new ResponseEntity<>(null, HttpStatus.CREATED);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            HashMap<String, Object> response = new HashMap<>();
+            response.put("msg", "服务器错误");
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**

@@ -45,4 +45,9 @@ public class Request {
     @TableField("curStatus")
     //-- 0:已完成 1:待响应 2:已取消 3:到期未达成
     private Integer status;
+
+    public static final int STATUS_COMPLETED = 0;
+    public static final int STATUS_WAITING = 1;
+    public static final int STATUS_CANCELLED = 2;
+    public static final int STATUS_OVERDUE = 3;
 }
