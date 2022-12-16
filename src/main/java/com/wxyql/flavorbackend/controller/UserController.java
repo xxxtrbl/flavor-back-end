@@ -18,7 +18,6 @@ import java.util.HashMap;
  */
 
 @RestController
-@Controller
 @RequestMapping("/user")
 public class UserController {
     private final IUserService userService;

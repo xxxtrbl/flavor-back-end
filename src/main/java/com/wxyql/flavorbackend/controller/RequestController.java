@@ -19,7 +19,6 @@ import java.util.HashMap;
  */
 
 @RestController
-@Controller
 @RequestMapping("/request")
 public class RequestController {
 

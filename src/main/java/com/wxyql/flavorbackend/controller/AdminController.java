@@ -22,7 +22,6 @@ import java.util.List;
  */
 
 @RestController
-@Controller
 @RequestMapping("/admin")
 public class AdminController {
     private final IStatisticService statisticService;
