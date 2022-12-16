@@ -54,7 +54,8 @@ create table responses
 -- 成功明细表
 create table bargains
 (
-    requestId int primary key auto_increment,
+    id varchar(32) primary key ,
+    requestId varchar(32) not null ,
     requestUser int not null,
     respondUser int not null,
     city varchar(30) not null,
@@ -69,8 +70,9 @@ create table reports
     mm int not null,
     -- 省-市
     city varchar(30) not null ,
-    -- 0:请品鉴 1:寻味道
+    -- 0家乡小吃/1地方特色小馆/2香辣味/3甜酸味/4绝一位菜
     responseType int not null,
+    -- 达成笔数
     respondNum int not null,
     totalMoney int not null
 );

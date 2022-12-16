@@ -26,7 +26,7 @@ public class ResponseService extends ServiceImpl<IResponseMapper, Response> impl
     public ResponsesInfo getResponseById(Integer userId) {
         QueryWrapper<Response> wrapper = new QueryWrapper<>();
 
-        wrapper.eq("userId", userId);
+        wrapper.eq("respondUserId", userId);
 
         ResponsesInfo result = new ResponsesInfo();
         result.setResponses(list(wrapper));
@@ -48,17 +48,17 @@ public class ResponseService extends ServiceImpl<IResponseMapper, Response> impl
     @Override
     public int reviseResponse(Response newRespond) {
         updateById(newRespond);
-        return 0;
+        return 1;
     }
 
     @Override
-    public int deleteReponse(Integer id) {
+    public int deleteReponse(String id) {
         removeById(id);
-        return 0;
+        return 1;
     }
 
     @Override
-    public int reviseStatus(Integer id, Integer status) {
+    public int reviseStatus(String id, Integer status) {
         UpdateWrapper<Response> wrapper = new UpdateWrapper<>();
 
         wrapper.eq("id", id)
@@ -73,7 +73,7 @@ public class ResponseService extends ServiceImpl<IResponseMapper, Response> impl
     public ResponsesInfo getResponseByRequestId(String requestId){
         QueryWrapper<Response> wrapper = new QueryWrapper<>();
 
-        wrapper.eq("request_id", requestId);
+        wrapper.eq("requestId", requestId);
 
         ResponsesInfo result = new ResponsesInfo();
         result.setResponses(list(wrapper));

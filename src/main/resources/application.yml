@@ -4,8 +4,8 @@ server:
 #Datasource config
 spring:
   datasource:
-    url: jdbc:mysql://192.168.131.132:3306/flavor
-    username: flavor
+    url: jdbc:mysql://localhost:3306/flavor
+    username: root
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
 # automatically execute script
@@ -13,13 +13,13 @@ spring:
     init:
       mode: always
       continue-on-error: true
-      username: flavor
+      username: root
       password: 123456
       encoding: utf-8
       schema-locations: classpath:initialize.sql
   jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
-    date-format: yyyy-MM-dd hh:mm:ss
 
 #Mybatis-plus config
 mybatis-plus:

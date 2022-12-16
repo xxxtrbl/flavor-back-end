@@ -5,6 +5,7 @@ import com.wxyql.flavorbackend.beans.RequestsInfo;
 import com.wxyql.flavorbackend.entity.Request;
 import com.wxyql.flavorbackend.service.IBargainService;
 import com.wxyql.flavorbackend.service.IRequestService;
+import com.wxyql.flavorbackend.service.IStatisticService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

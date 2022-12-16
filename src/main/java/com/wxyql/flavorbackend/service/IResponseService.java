@@ -44,14 +44,14 @@ public interface IResponseService extends IService<Response> {
      *
      * @return 删除成功 1, 否则0
      */
-    int deleteReponse(Integer id);
+    int deleteReponse(String id);
 
     /**
      * <p>修改请品鉴的状态</p>
      *
      * @return 修改成功1, 否则0
      */
-    int reviseStatus(Integer id, Integer status);
+    int reviseStatus(String id, Integer status);
 
     /**
      * <p>根据寻味道id找到对应收到的响应</p>
