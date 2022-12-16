@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -23,7 +24,6 @@ import java.util.List;
  */
 
 @RestController
-@Controller
 @CrossOrigin
 @RequestMapping("/response")
 public class ResponseController {
@@ -169,6 +169,29 @@ public class ResponseController {
             for(Request request : requests.getRequests()){
                 ResponsesInfo responsesToRequest = responseService.getResponseByRequestId(request.getRequestId());
                 responses.getResponses().addAll(responsesToRequest.getResponses());
+            }
+            return new ResponseEntity<>(responses, HttpStatus.OK);
+        }catch (Exception e){
+            HashMap<String, Object> response = new HashMap<>();
+            response.put("msg", "服务器错误");
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * 获取所有请品鉴
+     * @return 请求处理
+     */
+    @GetMapping("/getAll")
+    public ResponseEntity<Object> getAll(){
+        try {
+            ResponsesInfo responsesInfo = new ResponsesInfo();
+            List<Response> responses = responseService.list();
+            if(responses != null){
+                responsesInfo.setResponses(responses);
+            }
+            else{
+                responsesInfo.setResponses(new ArrayList<>());
             }
             return new ResponseEntity<>(responses, HttpStatus.OK);
         }catch (Exception e){
