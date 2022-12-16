@@ -19,8 +19,8 @@ public class Bargain {
     @TableId(value = "id",type = IdType.ASSIGN_UUID)
     private String id; //id
 
-    @TableField("requestId")
-    private String requestId;//寻味道id
+    @TableField("respondId")
+    private String respondId;//寻味道id
 
     @TableField("requestUser")
     private Integer requestUser;//寻味道用户id

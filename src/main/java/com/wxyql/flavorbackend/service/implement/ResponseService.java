@@ -62,7 +62,7 @@ public class ResponseService extends ServiceImpl<IResponseMapper, Response> impl
         UpdateWrapper<Response> wrapper = new UpdateWrapper<>();
 
         wrapper.eq("id", id)
-                .set("status", status);
+                .set("state", status);
 
         update(wrapper);
 

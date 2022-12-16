@@ -37,8 +37,8 @@ public class StatisticService extends ServiceImpl<IReportMapper, Report> impleme
 
         // 查找对应请品鉴记录是否存在
         QueryWrapper<Report> responseWrapper = new QueryWrapper<>();
-        responseWrapper.eq("year", year)
-                .eq("month", month)
+        responseWrapper.eq("yy", year)
+                .eq("mm", month)
                 .eq("city", city)
                 .eq("responseType", Report.RESPONSE_TYPE_RESPONSE);
         Report responseReport = getOne(responseWrapper);
@@ -48,8 +48,8 @@ public class StatisticService extends ServiceImpl<IReportMapper, Report> impleme
 
         // 查找对应寻味道记录是否存在
         QueryWrapper<Report> requestWrapper = new QueryWrapper<>();
-        requestWrapper.eq("year", year)
-                .eq("month", month)
+        requestWrapper.eq("yy", year)
+                .eq("mm", month)
                 .eq("city", city)
                 .eq("responseType", Report.RESPONSE_TYPE_REQUEST);
         Report requestReport = getOne(responseWrapper);

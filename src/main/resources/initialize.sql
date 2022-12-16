@@ -55,7 +55,7 @@ create table responses
 create table bargains
 (
     id varchar(32) primary key ,
-    requestId varchar(32) not null ,
+    respondId varchar(32) not null ,
     requestUser int not null,
     respondUser int not null,
     city varchar(30) not null,
