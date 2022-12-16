@@ -133,7 +133,7 @@ public class RequestService extends ServiceImpl<IRequestMapper, Request> impleme
     }
 
     @Override
-    public int reviseStatus(Integer requestId, int status) {
+    public int reviseStatus(String requestId, int status) {
         UpdateWrapper<Request>wrapper = new UpdateWrapper<>();
         wrapper.eq("requestId", requestId)
                 .set("status", status);

@@ -89,7 +89,7 @@ public interface IRequestService extends IService<Request> {
      *
      * @return 修改成功1, 否则0
      */
-    int reviseStatus(Integer requestId, int status);
+    int reviseStatus(String requestId, int status);
 
     /**
      * <p>更新当日订单状态</p>

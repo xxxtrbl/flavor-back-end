@@ -15,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.xml.ws.soap.AddressingFeature;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -130,7 +129,7 @@ public class ResponseController {
 
     /**
      * 拒绝请求
-     * @param responseId
+     * @param responseId 请品鉴id
      * @return 拒绝请求
      */
     @GetMapping("/reject")
@@ -152,14 +151,19 @@ public class ResponseController {
 
     /**
      * 同意请求
-     * @param responseId
+     * @param responseId 请品鉴id
      * @return 同意请求处理
      */
     @GetMapping("/agree")
     public ResponseEntity<Object> agreeResponse(@RequestParam("responseId") String responseId){
         try {
+            Response response = responseService.getById(responseId);
+            if(response == null){
+                return new ResponseEntity<>(null, HttpStatus.CREATED);
+            }
             int result = responseService.reviseStatus(responseId, Response.STATUS_ACCEPTED);
-            if(result == 1){
+            result += requestService.reviseStatus(response.getRequestId(), Request.STATUS_COMPLETED);
+            if(result == 2){
                 return new ResponseEntity<>(null, HttpStatus.OK);
             }
             else{
