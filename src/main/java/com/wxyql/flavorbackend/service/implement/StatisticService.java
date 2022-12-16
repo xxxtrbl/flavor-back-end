@@ -2,10 +2,7 @@ package com.wxyql.flavorbackend.service.implement;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.wxyql.flavorbackend.beans.MonthlyMoney;
-import com.wxyql.flavorbackend.beans.MonthlyNum;
-import com.wxyql.flavorbackend.beans.ReportsInfo;
-import com.wxyql.flavorbackend.beans.SearchCondition;
+import com.wxyql.flavorbackend.beans.*;
 import com.wxyql.flavorbackend.entity.Bargain;
 import com.wxyql.flavorbackend.entity.Report;
 import com.wxyql.flavorbackend.mapper.IReportMapper;
@@ -15,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 统计
@@ -141,24 +139,6 @@ public class StatisticService extends ServiceImpl<IReportMapper, Report> impleme
                 year--;
             }
         }
-        return result;
-    }
-
-    /* 这俩我想不好怎么弄，你可以再考虑看看 */
-    @Override
-    public MonthlyNum getTotalNumOrderedByMonth() {
-        MonthlyNum result = new MonthlyNum();
-
-        QueryWrapper<Report> wrapper = new QueryWrapper<>();
-        wrapper.groupBy("year", "month");
-        list(wrapper);
-
-        return result;
-    }
-
-    @Override
-    public MonthlyMoney getReportsOrderedByMoney() {
-        MonthlyMoney result = new MonthlyMoney();
         return result;
     }
 }

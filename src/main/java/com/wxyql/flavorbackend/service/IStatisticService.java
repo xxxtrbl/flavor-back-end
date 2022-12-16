@@ -1,12 +1,11 @@
 package com.wxyql.flavorbackend.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.wxyql.flavorbackend.beans.MonthlyMoney;
-import com.wxyql.flavorbackend.beans.MonthlyNum;
-import com.wxyql.flavorbackend.beans.ReportsInfo;
-import com.wxyql.flavorbackend.beans.SearchCondition;
+import com.wxyql.flavorbackend.beans.*;
 import com.wxyql.flavorbackend.entity.Bargain;
 import com.wxyql.flavorbackend.entity.Report;
+
+import java.util.List;
 
 /**
  * 统计服务接口
@@ -35,18 +34,4 @@ public interface IStatisticService extends IService<Report> {
      * @return 获取到对应的表单
      */
     ReportsInfo getReportsByConditions(SearchCondition conditions);
-
-    /**
-     * <p>按月统计成交量</p>
-     *
-     * @return 每个月对应的成交量
-     */
-    MonthlyNum getTotalNumOrderedByMonth();
-
-    /**
-     * <p>按月统计成交金额</p>
-     *
-     * @return 每个月对应的成交金额
-     */
-    MonthlyMoney getReportsOrderedByMoney();
 }
