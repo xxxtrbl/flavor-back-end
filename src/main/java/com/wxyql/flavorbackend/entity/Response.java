@@ -1,7 +1,6 @@
 package com.wxyql.flavorbackend.entity;
 
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 
 import java.util.Date;
@@ -9,13 +8,25 @@ import java.util.Date;
 @Data
 @TableName("responses")
 public class Response {
-    @TableId
-    private Integer id;
-    private Integer requestId;
+    @TableId(value="id", type = IdType.ASSIGN_UUID)
+    private String id;
+
+    @TableField("requestId")
+    private String requestId;
+
+    @TableField("respondUserId")
     private Integer respondUserId;
+
+    @TableField("respondIntro")
     private String respondIntro;
-    private Date respondDate;
-    private Date reviseDate;
+
+    @TableField(value = "createTime",fill= FieldFill.INSERT)
+    private Date createTime;
+
+    @TableField(value = "reviseTime", fill = FieldFill.INSERT_UPDATE)
+    private Date reviseTime;
+
+    @TableField("state")
     // -- 0:待接受; 1:同意; 2:拒绝; 3:取消
     private Integer status;
 

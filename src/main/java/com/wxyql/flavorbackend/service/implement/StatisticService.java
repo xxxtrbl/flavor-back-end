@@ -40,7 +40,7 @@ public class StatisticService extends ServiceImpl<IReportMapper, Report> impleme
         responseWrapper.eq("year", year)
                 .eq("month", month)
                 .eq("city", city)
-                .eq("response_type", Report.RESPONSE_TYPE_RESPONSE);
+                .eq("responseType", Report.RESPONSE_TYPE_RESPONSE);
         Report responseReport = getOne(responseWrapper);
         if(responseReport == null) {
             responseReport = new Report();
@@ -51,7 +51,7 @@ public class StatisticService extends ServiceImpl<IReportMapper, Report> impleme
         requestWrapper.eq("year", year)
                 .eq("month", month)
                 .eq("city", city)
-                .eq("response_type", Report.RESPONSE_TYPE_REQUEST);
+                .eq("responseType", Report.RESPONSE_TYPE_REQUEST);
         Report requestReport = getOne(responseWrapper);
         if(requestReport == null){
             requestReport = new Report();
