@@ -2,6 +2,7 @@ package com.wxyql.flavorbackend.controller;
 
 import com.wxyql.flavorbackend.beans.*;
 import com.wxyql.flavorbackend.entity.Bargain;
+import com.wxyql.flavorbackend.entity.Report;
 import com.wxyql.flavorbackend.entity.User;
 import com.wxyql.flavorbackend.service.IStatisticService;
 import com.wxyql.flavorbackend.service.IUserService;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -96,12 +98,23 @@ public class AdminController {
     @GetMapping("/groupByMonth")
     public ResponseEntity<Object> getNumAndMoneyByMonth(){
         try {
-            MonthlyNum monthlyNum = statisticService.getTotalNumOrderedByMonth();
-            MonthlyMoney monthlyMoney = statisticService.getReportsOrderedByMoney();
-            HashMap<String,Object> result = new HashMap<>();
-            result.put("monthlyNum", monthlyNum);
-            result.put("monthlyMoney", monthlyMoney);
-            return new ResponseEntity<>(result, HttpStatus.OK);
+            HashMap<Month, MonthlyData> monthData = new HashMap<>();
+            List<Report> reports = statisticService.list();
+            for(Report report : reports){
+                Month month = new Month(report.getYear(), report.getMonth());
+                MonthlyData monthlyData = monthData.get(month);
+                if(monthlyData == null){
+                    monthlyData = new MonthlyData();
+                    monthlyData.setMonth(new Month(report.getYear(), report.getMonth()));
+                    monthData.put(monthlyData.getMonth(), monthlyData);
+                    monthlyData.setNumber(0);
+                    monthlyData.setMoney(0);
+                }
+                monthlyData.setNumber(monthlyData.getNumber() + report.getRespondNum());
+                monthlyData.setMoney(monthlyData.getMoney() + report.getTotalMoney());
+            }
+
+            return new ResponseEntity<>(monthData.values(), HttpStatus.OK);
         }catch (Exception e){
             HashMap<String, Object> response = new HashMap<>();
             response.put("msg", "服务器错误");
