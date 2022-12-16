@@ -118,8 +118,11 @@ public class RequestService extends ServiceImpl<IRequestMapper, Request> impleme
 
     @Override
     public int reviseRequest(Request request) {
-        request.setReviseTime(new Date());
-        saveOrUpdate(request);
+//        request.setReviseTime(new Date());
+//        saveOrUpdate(request);
+        QueryWrapper<Request> wrapper = new QueryWrapper<>();
+        wrapper.eq("requestId", request.getRequestId());
+        update(request, wrapper);
         return 1;
     }
 
