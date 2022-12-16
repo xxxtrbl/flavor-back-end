@@ -1,5 +1,6 @@
 package com.wxyql.flavorbackend.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.wxyql.flavorbackend.beans.*;
 import com.wxyql.flavorbackend.entity.Bargain;
 import com.wxyql.flavorbackend.entity.Report;
@@ -12,7 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -96,12 +99,24 @@ public class AdminController {
      * @return 按月获取的数量和成交量(默认最多返回过去12个月的)
      */
     @GetMapping("/groupByMonth")
-    public ResponseEntity<Object> getNumAndMoneyByMonth(){
+    public ResponseEntity<Object> getNumAndMoneyByMonth(@RequestParam("startMonth") Integer startMonth,
+                                                        @RequestParam("startYear") Integer startYear,
+                                                        @RequestParam("endMonth") Integer endMonth,
+                                                        @RequestParam("endYear") Integer endYear,
+                                                        @RequestParam("city") String city){
         try {
+            QueryWrapper<Report> wrapper = new QueryWrapper<>();
+            wrapper.eq("city", city);
+            List<Report> reports = statisticService.list(wrapper);
             HashMap<Month, MonthlyData> monthData = new HashMap<>();
-            List<Report> reports = statisticService.list();
             for(Report report : reports){
-                Month month = new Month(report.getYear(), report.getMonth());
+                int reportYear = report.getYear();
+                int reportMonth = report.getMonth();
+                if(startYear*12+startMonth > reportYear*12+reportMonth ||
+                        endYear*12+endMonth < reportYear*12+reportMonth){
+                    continue;
+                }
+                Month month = new Month(reportYear, report.getMonth());
                 MonthlyData monthlyData = monthData.get(month);
                 if(monthlyData == null){
                     monthlyData = new MonthlyData();
