@@ -16,8 +16,11 @@ import java.util.Date;
 @Data
 @TableName("bargains")
 public class Bargain {
-    @TableId(value = "requestId",type = IdType.ASSIGN_UUID)
-    private Integer requestId;//寻味道id
+    @TableId(value = "id",type = IdType.ASSIGN_UUID)
+    private String id; //id
+
+    @TableField("requestId")
+    private String requestId;//寻味道id
 
     @TableField("requestUser")
     private Integer requestUser;//寻味道用户id

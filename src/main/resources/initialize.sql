@@ -54,7 +54,8 @@ create table responses
 -- 成功明细表
 create table bargains
 (
-    requestId int primary key auto_increment,
+    id varchar(32) primary key ,
+    requestId varchar(32) not null ,
     requestUser int not null,
     respondUser int not null,
     city varchar(30) not null,

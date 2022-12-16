@@ -2,6 +2,7 @@ package com.wxyql.flavorbackend.controller;
 
 import com.wxyql.flavorbackend.beans.RequestsInfo;
 import com.wxyql.flavorbackend.beans.ResponsesInfo;
+import com.wxyql.flavorbackend.entity.Bargain;
 import com.wxyql.flavorbackend.entity.Request;
 import com.wxyql.flavorbackend.entity.Response;
 import com.wxyql.flavorbackend.service.IBargainService;
@@ -155,7 +156,7 @@ public class ResponseController {
      * @return 同意请求处理
      */
     @GetMapping("/agree")
-    public ResponseEntity<Object> agreeResponse(@RequestParam("requestId") String responseId){
+    public ResponseEntity<Object> agreeResponse(@RequestParam("responseId") String responseId){
         try {
             int result = responseService.reviseStatus(responseId, Response.STATUS_ACCEPTED);
             if(result == 1){
@@ -164,6 +165,19 @@ public class ResponseController {
             else{
                 return new ResponseEntity<>(null, HttpStatus.CREATED);
             }
+        }catch (Exception e){
+            HashMap<String, Object> response = new HashMap<>();
+            response.put("msg", "服务器错误");
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping("/addBargain")
+    public ResponseEntity<Object> addBargain(@RequestBody Bargain bargain){
+        try{
+            this.bargainService.addBargain(bargain);
+
+            return new ResponseEntity<>(null,HttpStatus.OK);
         }catch (Exception e){
             HashMap<String, Object> response = new HashMap<>();
             response.put("msg", "服务器错误");
