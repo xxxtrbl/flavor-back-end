@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.xml.ws.soap.AddressingFeature;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +25,7 @@ import java.util.List;
  */
 
 @RestController
+@Controller
 @CrossOrigin
 @RequestMapping("/response")
 public class ResponseController {
@@ -62,7 +64,7 @@ public class ResponseController {
     }
 
     @GetMapping("/delete")
-    public ResponseEntity<Object> deleteResponse(@RequestParam("id") Integer id){
+    public ResponseEntity<Object> deleteResponse(@RequestParam("id") String id){
         try {
             int result = responseService.deleteReponse(id);
             if(result == 1){
@@ -101,7 +103,7 @@ public class ResponseController {
      * @return 请求id对应的响应
      */
     @GetMapping("/getById")
-    public ResponseEntity<Object> getResponseByRequestId(@RequestParam("requestId") Integer id){
+    public ResponseEntity<Object> getResponseByRequestId(@RequestParam("userId") Integer id){
         try {
             ResponsesInfo result = responseService.getResponseById(id);
             return new ResponseEntity<>(result, HttpStatus.OK);
@@ -112,13 +114,26 @@ public class ResponseController {
         }
     }
 
+
+    @GetMapping("/getResponsesByUserId")
+    public ResponseEntity<Object> getResponsesByUserId(@RequestParam("id") Integer id){
+        try{
+            ResponsesInfo result = responseService.getResponseById(id);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }catch (Exception e){
+            HashMap<String, Object> response = new HashMap<>();
+            response.put("msg","服务器错误");
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     /**
      * 拒绝请求
      * @param responseId
      * @return 拒绝请求
      */
     @GetMapping("/reject")
-    public ResponseEntity<Object> rejectResponse(@RequestParam("responseId") Integer responseId){
+    public ResponseEntity<Object> rejectResponse(@RequestParam("responseId") String responseId){
         try {
             int result = responseService.reviseStatus(responseId, Response.STATUS_REJECTED);
             if(result == 1){
@@ -140,7 +155,7 @@ public class ResponseController {
      * @return 同意请求处理
      */
     @GetMapping("/agree")
-    public ResponseEntity<Object> agreeResponse(@RequestParam("requestId") Integer responseId){
+    public ResponseEntity<Object> agreeResponse(@RequestParam("requestId") String responseId){
         try {
             int result = responseService.reviseStatus(responseId, Response.STATUS_ACCEPTED);
             if(result == 1){
@@ -157,9 +172,9 @@ public class ResponseController {
     }
 
     /**
-     * 同意请求
+     * 查找用户id对应的所有响应
      * @param userId 用户id
-     * @return 同意请求处理
+     * @return 查找到的响应
      */
     @GetMapping("/getReceivedByUserId")
     public ResponseEntity<Object> getResponseReceivedByUserId(@RequestParam("userId") Integer userId){
@@ -168,7 +183,10 @@ public class ResponseController {
             ResponsesInfo responses = new ResponsesInfo();
             for(Request request : requests.getRequests()){
                 ResponsesInfo responsesToRequest = responseService.getResponseByRequestId(request.getRequestId());
-                responses.getResponses().addAll(responsesToRequest.getResponses());
+                if(responses.getResponses()==null)
+                    responses.setResponses(responsesToRequest.getResponses());
+                else
+                    responses.getResponses().addAll(responsesToRequest.getResponses());
             }
             return new ResponseEntity<>(responses, HttpStatus.OK);
         }catch (Exception e){

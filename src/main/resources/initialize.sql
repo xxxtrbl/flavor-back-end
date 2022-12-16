@@ -69,8 +69,9 @@ create table reports
     mm int not null,
     -- 省-市
     city varchar(30) not null ,
-    -- 0:请品鉴 1:寻味道
+    -- 0家乡小吃/1地方特色小馆/2香辣味/3甜酸味/4绝一位菜
     responseType int not null,
+    -- 达成笔数
     respondNum int not null,
     totalMoney int not null
 );

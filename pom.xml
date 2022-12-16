@@ -54,7 +54,9 @@
                 <includes>
                     <include>**/*.yml</include>
                     <include>**/*.sql</include>
+                    <include>static/**</include>
                 </includes>
+                <filtering>false</filtering>
             </resource>
         </resources>
         <plugins>

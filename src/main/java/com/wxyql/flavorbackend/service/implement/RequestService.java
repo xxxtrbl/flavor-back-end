@@ -35,7 +35,7 @@ public class RequestService extends ServiceImpl<IRequestMapper, Request> impleme
 
     @Override
     public String picsRequest(MultipartFile multipartFile){
-        String filePath = "E:/Web/FlavorBackEnd/src/main/resources/static/pic/"+multipartFile.getOriginalFilename();
+        String filePath = "E:/Web/FlavorBackEnd/src/main/resources/static/"+multipartFile.getOriginalFilename();
         File file = new File(filePath);
         if(!file.exists()){
             try{
