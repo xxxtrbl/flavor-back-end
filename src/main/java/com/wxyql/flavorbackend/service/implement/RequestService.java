@@ -95,7 +95,7 @@ public class RequestService extends ServiceImpl<IRequestMapper, Request> impleme
     @Override
     public RequestsInfo fuzzySearchRequests(String keyword) {
         QueryWrapper<Request> wrapper = new QueryWrapper<>();
-        wrapper.like("theme", keyword);
+        wrapper.like("theme", keyword).or().like("intro", keyword);
 
         RequestsInfo result = new RequestsInfo();
 
@@ -118,6 +118,7 @@ public class RequestService extends ServiceImpl<IRequestMapper, Request> impleme
 
     @Override
     public int reviseRequest(Request request) {
+        request.setReviseTime(new Date());
         saveOrUpdate(request);
         return 1;
     }
