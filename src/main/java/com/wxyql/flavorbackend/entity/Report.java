@@ -10,7 +10,7 @@ import lombok.Data;
 @TableName("reports")
 public class Report {
     @TableId(value = "id", type = IdType.ASSIGN_UUID)
-    private Integer id;
+    private String id;
 
     @TableField("yy")
     private Integer year;

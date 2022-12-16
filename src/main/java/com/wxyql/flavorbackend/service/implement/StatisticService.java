@@ -44,6 +44,12 @@ public class StatisticService extends ServiceImpl<IReportMapper, Report> impleme
         Report responseReport = getOne(responseWrapper);
         if(responseReport == null) {
             responseReport = new Report();
+            responseReport.setYear(year);
+            responseReport.setMonth(month);
+            responseReport.setCity(city);
+            responseReport.setResponseType(Report.RESPONSE_TYPE_RESPONSE);
+            responseReport.setRespondNum(0);
+            responseReport.setTotalMoney(0);
         }
 
         // 查找对应寻味道记录是否存在
@@ -55,6 +61,12 @@ public class StatisticService extends ServiceImpl<IReportMapper, Report> impleme
         Report requestReport = getOne(responseWrapper);
         if(requestReport == null){
             requestReport = new Report();
+            requestReport.setYear(year);
+            requestReport.setMonth(month);
+            requestReport.setCity(city);
+            requestReport.setResponseType(Report.RESPONSE_TYPE_REQUEST);
+            requestReport.setRespondNum(0);
+            requestReport.setTotalMoney(0);
         }
 
         // 更新，计数+1，数额+3或1
